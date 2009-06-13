@@ -1,5 +1,6 @@
 class CompanyUser {
-	String id
-	String password
-	List<ClientApplication> clientApplications //1..*
+  String userId
+  String password
+  List<ClientApplication> clientApplications
+  static hasMany = [clientApplications: ClientApplication]
 }
