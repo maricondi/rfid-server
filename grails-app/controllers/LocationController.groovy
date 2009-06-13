@@ -1,4 +1,4 @@
-
+import clientdomain.Location
 
 class LocationController {
     
@@ -60,7 +60,7 @@ class LocationController {
                 def version = params.version.toLong()
                 if(locationInstance.version > version) {
                     
-                    locationInstance.errors.rejectValue("version", "location.optimistic.locking.failure", "Another user has updated this Location while you were editing.")
+                    locationInstance.errors.rejectValue("version", "location.optimistic.locking.failure", "Another user has updated this clientdomain.Location while you were editing.")
                     render(view:'edit',model:[locationInstance:locationInstance])
                     return
                 }

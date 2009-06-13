@@ -10,7 +10,7 @@ class Person {
 
   static constraints = {
     fullName(blank:true)
-    email(blank:true)
+    email(blank:true, email:true)
     company(blank:true)
     }
 
