@@ -1,5 +1,3 @@
-import clientdomain.Location
-
 class ClientApplication {
 	List<RfidReader> rfidReaders //1..*
 	List<Location> locations //*..1
