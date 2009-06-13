@@ -6,8 +6,8 @@ class RfidCardRestController {
 
   def list = {
      withFormat {
-      xml { render Rfidcard.list() as XML }
-      json { render Rfidcard.list() as JSON }
+      xml { render RfidCard.list() as XML }
+      json { render RfidCard.list() as JSON }
     }
   }
 
