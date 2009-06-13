@@ -1,0 +1,11 @@
+package clientdomain
+
+import jzdomain.RfidRegistration
+import jzdomain.RfidReader
+
+class ClientApplication {
+	List<RfidReader> rfidReaders //1..*
+	List<Location> locations //*..1
+	String about
+	List<RfidRegistration> registrations //1..*
+}
