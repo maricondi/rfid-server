@@ -1,0 +1,3 @@
+class RfidReader {
+	String readerId
+}
