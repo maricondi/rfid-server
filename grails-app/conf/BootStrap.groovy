@@ -1,4 +1,6 @@
 import clientdomain.Location
+import jzdomain.RfidCard
+import clientdomain.Person
 
 class BootStrap {
 

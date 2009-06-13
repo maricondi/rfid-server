@@ -1,6 +1,7 @@
 package rest
 
 import grails.converters.*
+import jzdomain.RfidCard
 
 
 class RfidCardRestController {
