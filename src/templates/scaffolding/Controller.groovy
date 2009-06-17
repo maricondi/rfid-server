@@ -28,42 +28,47 @@ class ${className}Controller {
     def ${propertyName} = ${className}.get( params.id )
 
     if(!${propertyName}) {
-      withFormat {
-        html {
           flash.message = "${className} not found with id \${params.id}"
           redirect(action:list)
-        }
-        xml { render ${className} as XML }
-        json { render ${className} as JSON }
-      }
     }
     else {
       withFormat {
         html { return [ ${propertyName} : ${propertyName} ] }
-        xml { sendNotFoundResponse("${className} not found with id: \${params.id}") }
+        xml { render ${propertyName} as XML }
+        json { render ${propertyName} as JSON }
       }
     }
   }
 
-
-    def delete = {
-        def ${propertyName} = ${className}.get( params.id )
-        if(${propertyName}) {
-            try {
+  def delete = {
+      def ${propertyName} = ${className}.get( params.id )
+      if(${propertyName}) {
+          try {
+            withFormat {
+              html {
                 ${propertyName}.delete(flush:true)
                 flash.message = "${className} \${params.id} deleted"
                 redirect(action:list)
+              }
+              xml {
+                ${propertyName}.delete(flush: true)
+                response.status = 204
+                render ""
+              }
             }
-            catch(org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${className} \${params.id} could not be deleted"
-                redirect(action:show,id:params.id)
-            }
-        }
-        else {
+          }
+          catch(org.springframework.dao.DataIntegrityViolationException e) {
+              flash.message = "${className} \${params.id} could not be deleted"
+              redirect(action:show,id:params.id)
+          }
+      }
+      else {
+        withFormat {
             flash.message = "${className} not found with id \${params.id}"
             redirect(action:list)
         }
-    }
+      }
+  }
 
     def edit = {
         def ${propertyName} = ${className}.get( params.id )
@@ -91,8 +96,16 @@ class ${className}Controller {
             }
             ${propertyName}.properties = params
             if(!${propertyName}.hasErrors() && ${propertyName}.save()) {
-                flash.message = "${className} \${params.id} updated"
-                redirect(action:show,id:${propertyName}.id)
+              withFormat {
+                html {
+                  flash.message = "${className} \${params.id} updated"
+                  redirect(action:show,id:${propertyName}.id)
+                }
+                xml {
+                  response.status = 201
+                  render ${propertyName} as XML
+                }
+              }
             }
             else {
                 render(view:'edit',model:[${propertyName}:${propertyName}])
@@ -104,11 +117,19 @@ class ${className}Controller {
         }
     }
 
-    def create = {
-        def ${propertyName} = new ${className}()
+  def create = {
+    def ${propertyName} = new ${className}()
+    withFormat {
+      html {
         ${propertyName}.properties = params
         return ['${propertyName}':${propertyName}]
+      }
+      xml {
+        response.status = 201
+        render rfidcardInstance as XML
+      }
     }
+  }
 
     def save = {
         def ${propertyName} = new ${className}(params)
@@ -120,13 +141,4 @@ class ${className}Controller {
             render(view:'create',model:[${propertyName}:${propertyName}])
         }
     }
-
-  private def sendNotFoundResponse(String myMessage) {
-    response.status = 404
-    render contentType: "application/xml", {
-      errors {
-        message(myMessage)
-      }
-    }
-  }
 }
