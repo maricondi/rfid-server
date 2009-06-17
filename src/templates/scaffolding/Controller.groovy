@@ -1,39 +1,50 @@
-<%=packageName ? "package ${packageName}\n\n" : ''%>class ${className}Controller {
+<%=packageName ? "package ${packageName}\n\n" : ''%>
 
-import grails.converters.*
+import grails.converters.XML
+import grails.converters.JSON
 
-    def index = { redirect(action:list,params:params) }
+class ${className}Controller {
 
-    // the delete, save and update actions only accept POST requests
-    static allowedMethods = [delete:'POST', save:'POST', update:'POST']
+//Use ?format=xml to handle other content types
 
-    def list = {
+
+  def index = { redirect(action:list,params:params) }
+
+  // the delete, save and update actions only accept POST requests
+  static allowedMethods = [delete:'POST', save:'POST', update:'POST']
+
+  def list = {
+    withFormat {
+      html {
+        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        [ ${propertyName}List: ${className}.list( params ), ${propertyName}Total: ${className}.count() ]
+      }
+      xml { render ${className}.list(params) as XML }
+      json { render ${className}.list(params) as JSON }
+    }
+  }
+
+  def show = {
+    def ${propertyName} = ${className}.get( params.id )
+
+    if(!${propertyName}) {
       withFormat {
         html {
-          params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-          [ ${propertyName}List: ${className}.list( params ), ${propertyName}Total: ${className}.count() ]
+          flash.message = "${className} not found with id \${params.id}"
+          redirect(action:list)
         }
-        xml { render ${className}.list(param) as XML }
-        json { render ${className}.list(param) as JSON }
+        xml { render ${className} as XML }
+        json { render ${className} as JSON }
       }
     }
-
-    def show = {
-        def ${propertyName} = ${className}.get( params.id )
-
-        if(!${propertyName}) {
-          //withFormat {
-            //html {
-            flash.message = "${className} not found with id \${params.id}"
-            redirect(action:list)
-        //}
-          //  xml {
-            //  render rfidcardInstance as XML
-            //}
-         // }
-        }
-        else { return [ ${propertyName} : ${propertyName} ] }
+    else {
+      withFormat {
+        html { return [ ${propertyName} : ${propertyName} ] }
+        xml { sendNotFoundResponse("${className} not found with id: \${params.id}") }
+      }
     }
+  }
+
 
     def delete = {
         def ${propertyName} = ${className}.get( params.id )
@@ -109,4 +120,13 @@ import grails.converters.*
             render(view:'create',model:[${propertyName}:${propertyName}])
         }
     }
+
+  private def sendNotFoundResponse(String myMessage) {
+    response.status = 404
+    render contentType: "application/xml", {
+      errors {
+        message(myMessage)
+      }
+    }
+  }
 }
