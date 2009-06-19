@@ -1,3 +1,0 @@
-class RfidCard {
-  String rfidId
-}
