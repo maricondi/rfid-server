@@ -11,9 +11,10 @@ class Person {
   static hasMany = [ rfidCards : RfidCard ]
 
   static constraints = {
-    fullName(blank:true)
-    email(blank:true, email:true)
+    fullName(blank:false)
+    email(blank:false, email:true)
     company(blank:true)
-    }
+  }
+  String toString() {"$fullName"}
 
 }
