@@ -3,7 +3,7 @@ package clientdomain
 import jzdomain.RfidRegistration
 
 class ClientApplication {
-	List<RfidReader> rfidReaders //1..*
 	String about
-	//List<RfidRegistration> registrations //1..*
+    static hasMany = [ registrations : RfidRegistration, rfidReaders:RfidReader ]
+    String toString() {"Application: $about"}
 }
