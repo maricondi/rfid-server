@@ -5,7 +5,7 @@ class UrlMappings {
         // apply constraints here
       }
     }
-    "/rest/rfidCard/$id?"(controller:"restRfidCard", action = [GET: "show", POST: "save", PUT: "update", DELETE: "remove"] )
+    "/rest/$controller/$id?"(action = [GET: "show", POST: "save", PUT: "update", DELETE: "remove"] )
     "/"(view: "/index")
     "500"(view: '/error')
   }

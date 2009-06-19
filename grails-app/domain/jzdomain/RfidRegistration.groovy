@@ -1,8 +1,9 @@
 package jzdomain
 
-import jzdomain.RfidCard
+import clientdomain.RfidReader
 
 class RfidRegistration {
 	RfidCard rfidCard
 	Date timestamp
+    RfidReader registeredBy
 }

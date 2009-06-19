@@ -1,6 +1,4 @@
-package clientdomain
-
-import jzdomain.RfidCard
+package jzdomain
 
 class Person {
   String fullName
@@ -9,7 +7,7 @@ class Person {
   //Int telephone (restricted)
   Boolean isHero = false
   Boolean alumni = false
-  List<RfidCard> rfidCards
+
   static hasMany = [ rfidCards : RfidCard ]
 
   static constraints = {

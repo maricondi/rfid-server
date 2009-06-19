@@ -1,7 +1,5 @@
 package clientdomain
 
-import clientdomain.ClientApplication
-
 class CompanyUser {
   String userId
   String password
