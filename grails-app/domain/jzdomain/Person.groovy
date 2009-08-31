@@ -4,7 +4,7 @@ class Person {
   String fullName
   String email
   String company
-  //Int telephone (restricted)
+  String telephone// (restricted)
   Boolean isHero = false
   Boolean alumni = false
 
@@ -14,6 +14,7 @@ class Person {
     fullName(blank:false)
     email(blank:false, email:true)
     company(blank:true)
+	telephone(matches:"(\\+[0-9][0-9]?\\s?)?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]")
   }
   String toString() {"$fullName"}
 
