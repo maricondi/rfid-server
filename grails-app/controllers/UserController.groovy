@@ -1,11 +1,11 @@
 
 
 
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
+
 /**
  * User controller.
  */
-import org.codehaus.groovy.grails.plugins.springsecurity.Secured
-
 @Secured(['ROLE_ADMIN'])
 class UserController {
 

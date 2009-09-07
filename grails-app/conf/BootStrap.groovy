@@ -13,8 +13,14 @@ class BootStrap {
 	def password = authenticateService.passwordEncoder("changeMe")
 	
 	def adminUser = new User(username:"admin",userRealName:"Administrator",passwd:password,enabled:true,emailShow:true,description:"admin account",email:"nomail@nomail.no").save()
+	def tietoUser = new User(username:"tietorfid",userRealName:"Tietos Rfid-reader",passwd:authenticateService.passwordEncoder("tietorfid") ,enabled:true,emailShow:true,description:"user account",email:"nomail@nomail.no").save()
 	adminRole.addToPeople(adminUser)
+	userRole.addToPeople(adminUser)
+	userRole.addToPeople(tietoUser)
+	userRole.save()
 	adminRole.save()
+	
+	
 	
     //Create a test dummy set of data
 

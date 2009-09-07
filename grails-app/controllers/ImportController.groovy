@@ -3,6 +3,9 @@ import java.io.InputStreamReader
 import java.io.BufferedReader
 import jzdomain.Person
 
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
+
+@Secured(['ROLE_ADMIN'])
 class ImportController {
 	
 	// the save action only accept POST requests
