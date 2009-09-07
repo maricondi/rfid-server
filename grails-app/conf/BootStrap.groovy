@@ -14,9 +14,11 @@ class BootStrap {
 	
 	def adminUser = new User(username:"admin",userRealName:"Administrator",passwd:password,enabled:true,emailShow:true,description:"admin account",email:"nomail@nomail.no").save()
 	def tietoUser = new User(username:"tietorfid",userRealName:"Tietos Rfid-reader",passwd:authenticateService.passwordEncoder("tietorfid") ,enabled:true,emailShow:true,description:"user account",email:"nomail@nomail.no").save()
+	def visitiUser = new User(username:"visitirfid",userRealName:"Visitis Rfid-reader",passwd:authenticateService.passwordEncoder("visitirfid") ,enabled:true,emailShow:true,description:"user account",email:"nomail@nomail.no").save()
 	adminRole.addToPeople(adminUser)
 	userRole.addToPeople(adminUser)
 	userRole.addToPeople(tietoUser)
+	userRole.addToPeople(visitiUser)
 	userRole.save()
 	adminRole.save()
 	

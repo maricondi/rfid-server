@@ -30,13 +30,15 @@ class SimpleRfidRegistrationController {
     }
     //Error handling
     else {
-      if(!registeredByApplication && params.registeredBy)
-        render("No RFID Reader application in the DB with ID $params.registeredBy")
+	  if (!registeredByApplication && params.registeredBy && !foundRfidCard && params.rfidId)
+        render("<xml><error name=\"UnknownRfidReader\">No RFID Reader application in the DB with ID $params.registeredBy</error><error name=\"UnknownRfid\">No RFID with the ID $params.rfidId</error></xml>")
+      else if(!registeredByApplication && params.registeredBy)
+        render("<xml><error name=\"UnknownRfidReader\">No RFID Reader application in the DB with ID $params.registeredBy</error></xml>")
       else if(!foundRfidCard && params.rfidId)
-        render("No RFID with the ID $params.rfidId")
+        render("<xml><error name=\"UnknownRfid\">No RFID with the ID $params.rfidId</error></xml>")
       else {
         def helpurl = "http://localhost:8080/rfid-server/html/simpleRfidRegistration/save?rfidId=135aa1fd&registeredBy=Gunnars%20orange%20registreringsleser&timestamp=3.10.2009-09:30:13"
-        render("Correct usage of service: <a href='$helpurl'>$helpurl</a>")
+        render("<xml><hint>Correct usage of service: <a href='$helpurl'>$helpurl</a></hint></xml>")
       }
     }
   }
