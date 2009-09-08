@@ -13,7 +13,7 @@ class Person {
 
   static constraints = {
     fullName(blank:false)
-    email(blank:false, email:true)
+    email(blank:true, email:true)
     company(blank:true)
 	telephone(blank:true, matches:"(\\+[0-9][0-9]?\\s?)?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]\\s?[0-9]")
   }
