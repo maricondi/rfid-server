@@ -37,6 +37,8 @@ class BootStrap {
     Location locationForRfidReader1 = new Location(xyLocation:"Here", cleartext:"Inngang sal 5").save()
     ClientApplication myApplication = new ClientApplication(about:"CompanyXXx's SuperDuper registration app").save()
     RfidReader rfidReader1 = new RfidReader(readerId:"Gunnars orange registreringsleser", readerLocation:locationForRfidReader1, usedByClientApplication:myApplication).save()
+	RfidReader tietoReader1 = new RfidReader(readerId:"Tieto1", readerLocation:locationForRfidReader1, usedByClientApplication:myApplication).save()
+	RfidReader tietoReader2 = new RfidReader(readerId:"Tieto2", readerLocation:locationForRfidReader1, usedByClientApplication:myApplication).save()
 
 
 
