@@ -26,7 +26,7 @@ class SimpleRfidRegistrationController {
 
       def newRegistration = new RfidRegistration(rfidCard: foundRfidCard, registeredBy: registeredByApplication, timestamp: timedAtTimeStamp)
       newRegistration.save()
-      redirect(controller: 'person', action: "show", params: [id: foundRfidCard.ownedBy.id, format:'xml'])
+      redirect(controller: 'simplePerson', action: "show", params: [id: foundRfidCard.rfidId, format:'xml'])
     }
     //Error handling
     else {
